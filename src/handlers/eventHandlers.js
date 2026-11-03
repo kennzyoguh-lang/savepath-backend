@@ -16,6 +16,8 @@
    naira (100000 means NGN 100,000).
    ============================================================ */
 
+import { store } from "../data/chainStore.js";
+
 // A goal was set from your wallet.
 // goal = {
 //   event: "GoalCreated",
@@ -35,7 +37,9 @@
 // }
 // Setting a goal again replaces the old one and resets the total to 0.
 export async function onGoalCreated(goal) {
-  console.log("Goal created:", goal);
+  console.log("Goal created:", goal.display.targetAmount, "by", goal.display.targetDate);
+  store.goal = goal;
+  store.contributions = []; // a new goal resets the recorded total
 }
 
 // A contribution was recorded from your wallet.
@@ -57,5 +61,6 @@ export async function onGoalCreated(goal) {
 //   }
 // }
 export async function onContributionRecorded(contribution) {
-  console.log("Contribution recorded:", contribution);
+  console.log("Contribution recorded:", contribution.display.amount, "total", contribution.display.totalContributed);
+  store.contributions.push(contribution);
 }

@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import aiRouter from "./routes/ai.js";
+import chainRouter from "./routes/chain.js";
 import { startEventListener } from "./services/eventListener.js";
 
 
@@ -15,6 +16,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/ai", aiRouter);
+app.use("/", chainRouter);
 
 app.use((req, res) => res.status(404).json({ error: "Not found" }));
 
