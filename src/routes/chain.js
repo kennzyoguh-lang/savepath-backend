@@ -6,7 +6,7 @@ const router = Router();
 // The wallet's current goal and progress, built from on-chain events.
 router.get("/goal", (req, res) => {
   const { goal } = snapshot();
-  if (!goal) return res.status(404).json({ error: "No goal recorded on-chain for this wallet yet" });
+  // 200 with null while the wallet has no goal on-chain yet (not an error)
   res.json(goal);
 });
 
